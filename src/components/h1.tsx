@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 type H1Props = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type H1Props = {
 export default function H1({ children, className }: H1Props) {
   return (
     <h1
-      className={clsx(
+      className={twMerge(
         "text-3xl lg:text-6xl font-bold tracking-tight",
         className
       )}
