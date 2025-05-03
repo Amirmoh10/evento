@@ -1,6 +1,7 @@
 import H1 from "@/components/h1";
 import { CityEvent } from "@/lib/types";
 import Image from "next/image";
+
 type EventPageParams = { params: Promise<{ id: string }> };
 
 const EventPage = async ({ params }: EventPageParams) => {
