@@ -11,7 +11,10 @@ export const generateMetadata = async ({ params }: CityPageParams) => {
   const { city } = await params;
 
   return {
-    title: `Events in ${city.charAt(0).toUpperCase() + city.slice(1)}`,
+    title:
+      city === "all"
+        ? "All Events"
+        : `Events in ${city.charAt(0).toUpperCase() + city.slice(1)}`,
   };
 };
 const CityPage = async ({ params }: CityPageParams) => {
