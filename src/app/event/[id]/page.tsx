@@ -1,8 +1,26 @@
 import H1 from "@/components/h1";
 import { CityEvent } from "@/lib/types";
+import { Metadata } from "next";
 import Image from "next/image";
 
 type EventPageParams = { params: Promise<{ id: string }> };
+
+export const generateMetadata = async ({
+  params,
+}: EventPageParams): Promise<Metadata> => {
+  const { id } = await params;
+  const response = await fetch(
+    `https://bytegrad.com/course-assets/projects/evento/api/events`
+  );
+
+  const events = await response.json();
+
+  const event = events.find((event: CityEvent) => event.id === Number(id));
+
+  return {
+    title: event.name,
+  };
+};
 
 const EventPage = async ({ params }: EventPageParams) => {
   const { id } = await params;

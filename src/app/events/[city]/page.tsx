@@ -2,12 +2,15 @@ import EventsList from "@/components/events-list";
 import H1 from "@/components/h1";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Metadata } from "next";
 
 type CityPageParams = {
   params: Promise<{ city: string }>;
 };
 
-export const generateMetadata = async ({ params }: CityPageParams) => {
+export const generateMetadata = async ({
+  params,
+}: CityPageParams): Promise<Metadata> => {
   const { city } = await params;
 
   return {
