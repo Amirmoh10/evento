@@ -2,20 +2,15 @@ import { ClassValue } from "clsx";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { prisma } from "../../prisma/prisma";
-import { EventoEvent } from "@prisma/client";
 
 export function cn(...classes: ClassValue[]) {
   return twMerge(clsx(classes));
 }
 
 export const getEvent = async (id: string) => {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events`
-  );
+  const event = prisma.eventoEvent.findUnique({ where: { id } });
 
-  const events = await response.json();
-
-  return events.find((event: EventoEvent) => event.id === Number(id));
+  return event;
 };
 
 const capitalize = (word: string) =>

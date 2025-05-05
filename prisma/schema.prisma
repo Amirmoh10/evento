@@ -17,7 +17,7 @@ datasource db {
 }
 
 model EventoEvent {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(uuid())
   name          String
   slug          String   @unique
   city          String
