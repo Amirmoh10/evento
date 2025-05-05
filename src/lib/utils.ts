@@ -17,13 +17,11 @@ const capitalize = (word: string) =>
   word.charAt(0).toUpperCase() + word.slice(1);
 
 export const getEvents = async (city: string) => {
-  if (city === "all") {
-    return prisma.eventoEvent.findMany();
-  }
-
-  return prisma.eventoEvent.findMany({
+  const events = prisma.eventoEvent.findMany({
     where: {
-      city: capitalize(city),
+      city: city === "all" ? undefined : capitalize(city),
     },
   });
+
+  return events;
 };
