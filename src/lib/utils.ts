@@ -2,13 +2,18 @@ import { ClassValue } from "clsx";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { prisma } from "../../prisma/prisma";
+import { notFound } from "next/navigation";
 
 export function cn(...classes: ClassValue[]) {
   return twMerge(clsx(classes));
 }
 
 export const getEvent = async (id: string) => {
-  const event = prisma.eventoEvent.findUnique({ where: { id } });
+  const event = await prisma.eventoEvent.findUnique({ where: { id } });
+
+  if (!event) {
+    notFound();
+  }
 
   return event;
 };
