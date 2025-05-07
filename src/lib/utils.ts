@@ -18,16 +18,34 @@ export const getEvent = async (id: string) => {
   return event;
 };
 
-const capitalize = (word: string) =>
+export const capitalize = (word: string) =>
   word.charAt(0).toUpperCase() + word.slice(1);
 
-export const getEvents = async (city: string) => {
-  const events = prisma.eventoEvent.findMany({
+export const getEvents = async (city: string, page: number) => {
+  const numberOfEventsToSkip = (page - 1) * 6;
+
+  const events = await prisma.eventoEvent.findMany({
     where: {
       city: city === "all" ? undefined : capitalize(city),
     },
     orderBy: { date: "asc" },
+    take: 6,
+    skip: numberOfEventsToSkip,
   });
 
-  return events;
+  let totalCount;
+  if (city === "all") {
+    totalCount = await prisma.eventoEvent.count();
+  } else {
+    totalCount = await prisma.eventoEvent.count({
+      where: {
+        city: capitalize(city),
+      },
+    });
+  }
+
+  return {
+    events,
+    totalCount,
+  };
 };
