@@ -1,4 +1,4 @@
-import { getEvents } from "@/lib/utils";
+import { getEvents } from "@/lib/server-utils";
 import EventCard from "./event-card";
 import PaginationControls from "./PaginationControls";
 
@@ -16,7 +16,7 @@ const EventsList = async ({ city, page = 1 }: EventsListProps) => {
 
   return (
     <section className="max-w-[1100px] flex flex-col gap-20 px-[20px]">
-      <div className="flex flex-wrap justify-center w-full">
+      <div className="flex flex-wrap gap-10 justify-center w-full">
         {events.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
